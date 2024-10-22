@@ -14,9 +14,9 @@ A geospatial data manager that allows users to upload GeoJSON or KML files and v
 
 #### Frontend
 ##### Packages: 
-• react-leaflet (map display and interaction)
+- react-leaflet (map display and interaction)
 
 #### Backend
 ##### Packages: 
-• express
-• multer (file handling)
+- express
+- multer (file handling)
