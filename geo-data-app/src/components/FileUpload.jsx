@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios'
 import FileUploadIcon from '../assets/icons/file-upload-icon.svg'
 
-const FileUpload = ({ setGeoJsonUrl }) => {
+const FileUpload = ({ setGeoJsonUrl, setGeoJsonData }) => {
   const [file, setFile] = useState(null);
   const [message, setMessage] = useState('');
 
@@ -29,23 +29,24 @@ const FileUpload = ({ setGeoJsonUrl }) => {
       });
       const data = response.data;
       setMessage(data.message || 'File uploaded successfully');
-      const fileUrl = `http://localhost:5000${data.filePath}`;
-      console.log('File URL:', fileUrl);  // Added logging for debugging
-      setGeoJsonUrl(fileUrl);
+      if (data.geoJsonData) {
+        // Directly set the GeoJSON data if the response contains converted data (from KML)
+        setGeoJsonUrl(null);  // set URL to null to make sure it doesn't change and trigger the useEffect
+        setGeoJsonData(data.geoJsonData);  // Pass the GeoJSON data directly to the map
+      } else if (data.filePath) {
+        // If it's a GeoJSON file, use the URL to fetch the data
+        const fileUrl = `http://localhost:5000${data.filePath}`;
+        setGeoJsonUrl(fileUrl);
+      }
     } catch (error) {
       setMessage('Error uploading file:', error);
     }
   };
 
   return (
-    <div>
+    <div className='my-3'>
       <h2>Upload GeoJSON or KML File</h2>
-      {/* <form onSubmit={handleSubmit}>
-        <input type="file" onChange={handleFileChange} accept=".geojson, .kml" />
-        <button type="submit">Upload</button>
-      </form>
-      {message && <p>{message}</p>} */}
-      <div className="text-center">
+      <div className="text-center my-3">
         <div className="file-upload-container mx-auto" onClick={ () => document.getElementById('file-upload-input').click() }>
           <img src={FileUploadIcon} alt='Upload Icon' className='icon-size-m' />
           {file ? 
@@ -69,5 +70,6 @@ const FileUpload = ({ setGeoJsonUrl }) => {
 export default FileUpload;
 
 FileUpload.propTypes = {
-  setGeoJsonUrl: PropTypes.func
+  setGeoJsonUrl: PropTypes.func,
+  setGeoJsonData: PropTypes.func
 }

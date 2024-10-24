@@ -22,8 +22,8 @@ const Home = () => {
   return (
     <div className='home-container'>
       <h2 className='text-center'>Geospatial Data Manager</h2>
-      <div className="container d-flex flex-column align-items-center">
-        <FileUpload setGeoJsonUrl={setGeojsonUrl}/>
+      <div className="container d-flex justify-content-around">
+        <FileUpload setGeoJsonUrl={setGeojsonUrl} setGeoJsonData={setGeojsonData} />
         <MapView geoJsonData={geojsonData}/>
       </div>
     </div>
