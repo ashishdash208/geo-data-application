@@ -1,5 +1,8 @@
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
+const tj = require('@tmcw/togeojson');
+const DOMParser = require("xmldom").DOMParser;
 
 // Configure Multer for file storage
 const storage = multer.diskStorage({
@@ -37,9 +40,26 @@ exports.uploadFile = (req, res) => {
     if (!req.file) {
       return res.status(400).json({ error: 'No file uploaded' });
     }
-    res.json({
-      message: 'File uploaded successfully',
-      filePath: `/uploads/${req.file.filename}`,
-    });
+
+    const filePath = path.join(__dirname, '..', 'uploads', req.file.filename);
+    const fileExtension = path.extname(req.file.filename).toLowerCase();
+
+    // If the file is KML, convert it to GeoJSON
+    if (fileExtension === '.kml') {
+      const kml = new DOMParser().parseFromString(fs.readFileSync(filePath, 'utf8'));
+      const geoJsonData = tj.kml(kml);
+
+      // Respond with the converted GeoJSON data directly
+      return res.json({
+        message: 'KML file uploaded and converted to GeoJSON successfully',
+        geoJsonData,
+      });
+    } else if (fileExtension === '.geojson') {
+      // If the file is already in GeoJSON format, return the file path
+      return res.json({
+        message: 'GeoJSON file uploaded successfully',
+        filePath: `/uploads/${req.file.filename}`,
+      });
+    }
   });
 };
