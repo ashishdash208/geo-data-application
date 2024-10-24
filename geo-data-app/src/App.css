@@ -11,3 +11,28 @@ body {
   margin: 0 auto;
   padding: 24px;
 }
+
+.file-upload-container {
+  border: 2px dashed rgb(47, 47, 47);
+  border-radius: 8px;
+  padding: 20px;
+  height: 135px;
+  width: 100%;
+  max-width: 200px;
+  cursor: pointer;
+}
+
+.icon-size-m {
+  height: 24px;
+  width: 24px;
+}
+
+.custom-button {
+  padding: 12px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  color: white;
+  text-align: center;
+  background-color: rgb(0, 81, 255);
+  border: none;
+}
