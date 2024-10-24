@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
+import axios from 'axios'
 
-const FileUpload = () => {
+const FileUpload = ({ setGeoJsonUrl }) => {
   const [file, setFile] = useState(null);
   const [message, setMessage] = useState('');
 
@@ -19,12 +21,16 @@ const FileUpload = () => {
     formData.append('file', file);
 
     try {
-      const response = await fetch('http://localhost:5000/files/upload', {
-        method: 'POST',
-        body: formData,
+      const response = await axios.post('http://localhost:5000/files/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
-      const data = await response.json();
+      const data = response.data;
       setMessage(data.message || 'File uploaded successfully');
+      const fileUrl = `http://localhost:5000${data.filePath}`;
+      console.log('File URL:', fileUrl);  // Added logging for debugging
+      setGeoJsonUrl(fileUrl);
     } catch (error) {
       setMessage('Error uploading file:', error);
     }
@@ -43,3 +49,7 @@ const FileUpload = () => {
 };
 
 export default FileUpload;
+
+FileUpload.propTypes = {
+  setGeoJsonUrl: PropTypes.func
+}
