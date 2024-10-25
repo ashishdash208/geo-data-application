@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios'
 import FileUploadIcon from '../assets/icons/file-upload-icon.svg'
+import { uploadFile } from '../services/api';
 
 const FileUpload = ({ setGeoJsonUrl, setGeoJsonData }) => {
   const [file, setFile] = useState(null);
@@ -17,31 +17,29 @@ const FileUpload = ({ setGeoJsonUrl, setGeoJsonData }) => {
       setMessage('Please select a file');
       return;
     }
-
+  
     const formData = new FormData();
     formData.append('file', file);
-
+  
     try {
-      const response = await axios.post('http://localhost:5000/files/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const response = await uploadFile(formData); // Make sure this is an async call
       const data = response.data;
       setMessage(data.message || 'File uploaded successfully');
+  
       if (data.geoJsonData) {
         // Directly set the GeoJSON data if the response contains converted data (from KML)
-        setGeoJsonUrl(null);  // set URL to null to make sure it doesn't change and trigger the useEffect
         setGeoJsonData(data.geoJsonData);  // Pass the GeoJSON data directly to the map
+        setGeoJsonUrl(null);  // No need for a URL fetch since we have the data
       } else if (data.filePath) {
         // If it's a GeoJSON file, use the URL to fetch the data
         const fileUrl = `http://localhost:5000${data.filePath}`;
         setGeoJsonUrl(fileUrl);
       }
     } catch (error) {
-      setMessage('Error uploading file:', error);
+      setMessage('Error uploading file: ' + error.message); // Concatenate error message
     }
   };
+  
 
   return (
     <div className='my-3'>

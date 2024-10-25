@@ -1,5 +1,6 @@
 const express = require('express');
 const fileRoutes = require('./routes/fileRoutes');
+const authRoutes = require('./routes/authRoutes')
 const path = require('path');
 const cors = require('cors');
 require('dotenv').config();
@@ -23,5 +24,6 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Use file routes
 app.use('/files', fileRoutes);
+app.use('/auth', authRoutes);
 
 module.exports = app;
