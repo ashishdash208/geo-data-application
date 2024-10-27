@@ -1,7 +1,7 @@
 # Geo Data App
 
 ## Description
-Geo Data App is a geospatial data manager that allows users to upload GeoJSON or KML files and visualize them on an interactive map. The application provides user authentication, file uploads, and data management capabilities, enabling users to manage and interact with their geospatial data efficiently.
+This Geo Data App is a geospatial data manager that allows users to upload GeoJSON or KML files and visualize them on an interactive map. The application provides user authentication, file uploads, and data management capabilities, enabling users to manage and interact with their geospatial data efficiently.
 
 ## Getting Started
 
