@@ -6,6 +6,7 @@ import MapView from '../components/MapView';
 const Dashboard = () => {
   const [files, setFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null); // State for the selected file
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchFiles = async () => {
@@ -14,6 +15,8 @@ const Dashboard = () => {
         setFiles(response.data.files);
       } catch (error) {
         console.error('Error fetching user files:', error);
+      } finally {
+        setLoading(false)
       }
     };
 
@@ -23,6 +26,10 @@ const Dashboard = () => {
   const handleFileClick = (file) => {
     setSelectedFile(file); // Update the selected file
   };
+
+  if(loading) {
+    return <div className="text-center my-4">LOADING...</div>
+  }
 
   return (
     <div>
@@ -35,7 +42,7 @@ const Dashboard = () => {
             <h4>Uploaded Files</h4>
           <ul className='uploaded-files-list' style={{ maxHeight: "400px", overflowY: "auto" }}>
             {Array.isArray(files) && files.map(file => (
-              <li key={file.id} onClick={() => handleFileClick(file)} className={selectedFile.id === file.id ? 'selected-file' : ''} style={{ cursor: 'pointer' }}>
+              <li key={file.id} onClick={() => handleFileClick(file)} className={(selectedFile && selectedFile.id === file.id) ? 'selected-file' : ''} style={{ cursor: 'pointer' }}>
                 {file.filename}
               </li>
             ))} 
@@ -53,7 +60,7 @@ const Dashboard = () => {
               <MapView />
             </>
           )}
-          <Link to="/home" className='ms-3'> Upload more files </Link>
+          <Link to="/" className='ms-3'> Upload more files </Link>
           </div>
         </div>
       )}
