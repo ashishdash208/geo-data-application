@@ -86,12 +86,13 @@ exports.uploadFile = (req, res) => {
   });
 };
 
-exports.getUserFiles = (req, res) => {
+exports.getUserFiles = async (req, res) => {
   try {
     const userId = req.user.id;
     console.log('userId:', userId);
-    const userFiles = db.GeoFile.findAll({ where: {userId} })
-    res.status(200).json({ statusCode: 200, message: 'Files Found!', files: Array.isArray(userFiles) ? userFiles : [] });
+    const userFiles = await db.GeoFile.findAll({ where: {UserId: userId} })
+    console.log('userFiles: ', userFiles);
+    res.status(200).json({ statusCode: 200, message: 'Files Found!', files: userFiles ? userFiles : [] });
   } catch(error) {
     res.status(500).json({ message: `Error fetching Files: ${error}` });
   }

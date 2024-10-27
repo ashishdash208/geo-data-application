@@ -48,4 +48,14 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { register, login }
+const validateToken = (req, res) => {
+  const token = req.headers['authorization']?.split(' ')[1];
+  if (!token) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403); // Forbidden if expired or invalid
+    res.status(200).json({ valid: true });
+  });
+};
+
+module.exports = { register, login, validateToken }

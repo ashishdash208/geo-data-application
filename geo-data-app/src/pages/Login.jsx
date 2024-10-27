@@ -10,9 +10,7 @@ const Login = () => {
             const response = await login(username, password);
             // Store token or user info if necessary
             const responseData = response.data;
-            if(!localStorage.getItem('token')) {
-                localStorage.setItem('token', responseData.token)
-            }
+            localStorage.setItem('token', responseData.token)
             navigate('/'); // Redirect to Home page
         } catch (error) {
             console.error('Login failed:', error);

@@ -10,7 +10,7 @@ const Dashboard = () => {
     const fetchFiles = async () => {
       try {
         const response = await getUserFiles();
-        setFiles(response.data);
+        setFiles(response.data.files);
       } catch (error) {
         console.error('Error fetching user files:', error);
       }
@@ -25,24 +25,34 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h2>Your Uploaded Files</h2>
+      <h2 className='text-center'>Dashboard</h2>
       {files.length === 0 ? (
         <p>No files uploaded yet.</p>
       ) : (
-        <div>
-          <ul>
+        <div className='container d-flex justify-content-around align-items-center gap-3'>
+          <div>
+            <h4>Uploaded Files</h4>
+          <ul className='uploaded-files-list' style={{ maxHeight: "400px", overflowY: "auto" }}>
             {Array.isArray(files) && files.map(file => (
               <li key={file.id} onClick={() => handleFileClick(file)} style={{ cursor: 'pointer' }}>
                 {file.filename}
               </li>
-            ))}
+            ))} 
           </ul>
-          {selectedFile && (
-            <div>
-              <h3>Showing Map for: {selectedFile.filename}</h3>
+          </div>
+            <div className="map-container">
+          {selectedFile ? (
+            <>
+              <h4 className='text-center'>Showing Map for: {selectedFile.filename}</h4>
               <MapView geoJsonData={selectedFile.geoJsonData} />
-            </div>
+            </>
+          ) : (
+            <>
+              <h4 className='text-center'>Select a file to view it on the Map</h4>
+              <MapView />
+            </>
           )}
+          </div>
         </div>
       )}
     </div>

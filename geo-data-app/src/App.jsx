@@ -5,6 +5,7 @@ import Register from './pages/Register';
 import ProtectedRoute from './components/ProtectedRoute'
 import './App.css'
 import Dashboard from './pages/Dashboard';
+import TokenValidator from './components/TokenValidator';
 
 const App = () => {
   return (

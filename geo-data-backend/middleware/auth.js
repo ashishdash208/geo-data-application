@@ -6,7 +6,7 @@ const verifyToken = (req, res, next) => {
   if (!token) return res.sendStatus(401); // Unauthorized if no token
 
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) {console.log('err:', err); return res.sendStatus(403);} // Forbidden if token is invalid
+    if (err) {console.log('Middleware Auth error:', err); return res.sendStatus(403);} // Forbidden if token is invalid
     req.user = user; // Attach user info to req object
     next();
   });

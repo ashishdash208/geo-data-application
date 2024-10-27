@@ -1,4 +1,5 @@
 import { Navigate } from 'react-router-dom';
+import TokenValidator from './TokenValidator';
 
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('token'); // Check if the user has a token
@@ -9,7 +10,11 @@ const ProtectedRoute = ({ children }) => {
   }
 
   // Otherwise, render the children
-  return children;
+  return <>
+    <TokenValidator>
+      {children}
+    </TokenValidator>
+  </>;
 };
 
 export default ProtectedRoute;
