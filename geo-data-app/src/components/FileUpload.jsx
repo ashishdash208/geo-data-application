@@ -11,6 +11,12 @@ const FileUpload = ({ setGeoJsonUrl, setGeoJsonData }) => {
     setFile(event.target.files[0]);
   };
 
+  const handleFileDrop = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setFile(event.dataTransfer.files[0]);
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!file) {
@@ -49,7 +55,7 @@ const FileUpload = ({ setGeoJsonUrl, setGeoJsonData }) => {
   return (
     <div className='my-3'>
       <h2>Upload GeoJSON or KML File</h2>
-      <div className="text-center my-3">
+      <div className="text-center my-3" onDragOver={(event) => event.preventDefault()} onDrop={handleFileDrop}>
         <div className="file-upload-container mx-auto" onClick={ () => document.getElementById('file-upload-input').click() }>
           <img src={FileUploadIcon} alt='Upload Icon' className='icon-size-m' />
           {file ? 

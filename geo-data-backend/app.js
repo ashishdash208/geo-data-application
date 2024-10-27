@@ -23,7 +23,7 @@ const db = mysql.createConnection({
 // Middleware for serving static files (uploaded files)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-const UPLOADS_DIR = path.join(__dirname, '..', 'uploads');
+const UPLOADS_DIR = path.join(__dirname, 'uploads');
 
 // Ensure uploads directory exists
 if (!fs.existsSync(UPLOADS_DIR)) {
