@@ -29,9 +29,13 @@ Navigate to the app folder
 ```bash
 cd geo-data-app
 ```
+Install the dependencies
+```bash
+npm install
+```
 Run the client (Runs on Port 5173 by default)
 ```bash
-nom run dev
+npm run dev
 ```
 #### Backend
 The backend of the application is written in Node.js and uses `Express.js` for writing API's. The Sequelize library is used for ORM (Object-Relational Mapping) with a MySQL database. JSON Web Token (JWT) is used for user management.
@@ -42,14 +46,18 @@ You will need to install the following packages (You can run npm install in the 
 ```bash
 npm install express multer mysql2 sequelize jsonwebtoken cors
 ```
-###### NOTE: Make sure that you have a Database created in MySQL before you run the app. Sequelize models will automatically create the tables for you, but not the "database" itself.
+##### NOTE: Make sure that you have a Database created in MySQL before you run the app. Sequelize models will automatically create the tables for you, but not the "database" itself.
 
 ##### To run the backend:
 Navigate to the backend folder
 ```bash
 cd geo-data-backend
 ```
+Install the dependencies
+```bash
+npm install
+```
 Run the server (start script can be specified in package.json)
 ```bash
-nom run server
+npm run server
 ```
