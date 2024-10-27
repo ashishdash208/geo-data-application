@@ -17,6 +17,11 @@ const FileUpload = ({ setGeoJsonUrl, setGeoJsonData }) => {
       setMessage('Please select a file');
       return;
     }
+
+    if (file.size > 500000) {
+      setMessage('File Size is too big. Max Size is 5 Mb.');
+      return;
+    }
   
     const formData = new FormData();
     formData.append('file', file);
@@ -53,7 +58,7 @@ const FileUpload = ({ setGeoJsonUrl, setGeoJsonData }) => {
           </> : 
           <>
           <div>Upload a GeoJson or KML File</div>
-          <div>Max File Size: 2 Mb</div>
+          <div>Max File Size: 5 Mb</div>
           </>
           }
           <input id='file-upload-input' type="file" onChange={handleFileChange} accept=".geojson, .kml" className='d-none' />

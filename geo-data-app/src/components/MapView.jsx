@@ -23,8 +23,7 @@ const MapView = ({ geoJsonData }) => {
   console.log('Rendering Map with GeoJSON:', geoJsonData);
 
   return (
-    <div className='my-3'>
-      <h2 className='text-center'> Map View </h2>
+    <div className='mb-3'>
     <MapContainer center={[46.8, 8.33]} zoom={7} scrollWheelZoom={false} style={{ height: '500px', width:'500px', margin: '16px' }}>
        {/* Basic tile Layer from openstreetmap */}
       <TileLayer

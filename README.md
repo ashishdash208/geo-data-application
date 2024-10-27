@@ -15,7 +15,7 @@ Before you begin, ensure you have met the following requirements:
 ### Setup
 
 #### Frontend
-The frontend of the application is built using React with Vite and utilizes `react-leaflet` for map visualization. The Bootstrap library is included via CDN.
+The frontend of the application is built using React with Vite and utilizes [react-leaflet](https://react-leaflet.js.org/docs/start-introduction/) for map visualization. The Bootstrap library is included via CDN.
 
 ##### Packages
 You will need to install the following packages (You can run npm install in the respective folders):

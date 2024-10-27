@@ -21,7 +21,16 @@ const Signup = () => {
             localStorage.setItem('token', responseData.token)
             navigate('/'); // Redirect to Home page
         } catch (error) {
-            console.error('Registration failed:', error);
+            if(error.response) {
+                switch(error.response.status) {
+                    case 409: setMessage(`Username "${username}" already exists. Please enter a different username.`); break;
+                    case 500: setMessage('Something went wrong. Please try later'); break;
+                    default: setMessage('An error occurred. Please try again later.');
+                }
+            } else {
+                setMessage('Network error. Please try again.');
+                console.error('Registration failed:', error);
+            }
         }
     };
 

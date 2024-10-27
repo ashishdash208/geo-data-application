@@ -13,6 +13,7 @@ const Home = () => {
       <div className="container d-flex justify-content-around">
         <FileUpload setGeoJsonUrl={setGeojsonUrl} setGeoJsonData={setGeojsonData} />
         <div>
+        <h2 className='text-center mt-3'> Map View </h2>
         <MapView geoJsonData={geojsonData}/>
         <Link to='/dashboard' target='_blank' rel='noreferrer'>View your Files</Link>
         </div>

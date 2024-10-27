@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { getUserFiles } from '../services/api';
 import MapView from '../components/MapView';
 
@@ -29,12 +30,12 @@ const Dashboard = () => {
       {files.length === 0 ? (
         <p>No files uploaded yet.</p>
       ) : (
-        <div className='container d-flex justify-content-around align-items-center gap-3'>
+        <div className='container d-flex justify-content-around gap-3'>
           <div>
             <h4>Uploaded Files</h4>
           <ul className='uploaded-files-list' style={{ maxHeight: "400px", overflowY: "auto" }}>
             {Array.isArray(files) && files.map(file => (
-              <li key={file.id} onClick={() => handleFileClick(file)} style={{ cursor: 'pointer' }}>
+              <li key={file.id} onClick={() => handleFileClick(file)} className={selectedFile.id === file.id ? 'selected-file' : ''} style={{ cursor: 'pointer' }}>
                 {file.filename}
               </li>
             ))} 
@@ -52,6 +53,7 @@ const Dashboard = () => {
               <MapView />
             </>
           )}
+          <Link to="/home" className='ms-3'> Upload more files </Link>
           </div>
         </div>
       )}

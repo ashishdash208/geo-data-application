@@ -33,11 +33,11 @@ const login = async (req, res) => {
   try {
     // Find the user, if exists
     const user = await db.User.findOne({ where: { username } });
-    if (!user) return res.status(400).json({ error: 'User not found' });
+    if (!user) return res.status(404).json({ error: 'User not found' });
 
     // Check password
     const isMatch = bcrypt.compareSync(password, user.password);
-    if (!isMatch) return res.status(400).json({ error: 'Invalid credentials' });
+    if (!isMatch) return res.status(401).json({ error: 'Invalid credentials' });
 
     // Generate JWT token
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
