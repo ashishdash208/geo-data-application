@@ -3,6 +3,7 @@ const fileRoutes = require('./routes/fileRoutes');
 const authRoutes = require('./routes/authRoutes')
 const path = require('path');
 const cors = require('cors');
+const fs = require('node:fs')
 require('dotenv').config();
 const mysql = require('mysql2');
 
@@ -21,6 +22,13 @@ const db = mysql.createConnection({
 
 // Middleware for serving static files (uploaded files)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+const UPLOADS_DIR = path.join(__dirname, '..', 'uploads');
+
+// Ensure uploads directory exists
+if (!fs.existsSync(UPLOADS_DIR)) {
+    fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+}
 
 // Use file routes
 app.use('/files', fileRoutes);

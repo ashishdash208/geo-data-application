@@ -46,7 +46,9 @@ You will need to install the following packages (You can run npm install in the 
 ```bash
 npm install express multer mysql2 sequelize jsonwebtoken cors
 ```
-##### NOTE: Make sure that you have a Database created in MySQL before you run the app. Sequelize models will automatically create the tables for you, but not the "database" itself.
+##### NOTE: 
+- Make sure that you have a Database created in MySQL before you run the app. Sequelize models will automatically create the tables for you, but not the "database" itself.
+- Ensure the `uploads` folder exists in the backend root directory for file uploads to function properly. This folder is automatically created on server start, but you can also manually create it if needed. This folder is necessary since the project does not use any external file (Blob) storage service.
 
 ##### To run the backend:
 Navigate to the backend folder
@@ -61,5 +63,8 @@ Run the server (start script can be specified in package.json)
 ```bash
 npm run server
 ```
+
+#### Sample Files
+The samples fodler contains some GeoJSON and KML files for you start trying out the application.
 ### LICENSE
 Feel free to modify any sections to better suit your project or preferences!
