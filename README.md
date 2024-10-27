@@ -61,3 +61,5 @@ Run the server (start script can be specified in package.json)
 ```bash
 npm run server
 ```
+### LICENSE
+Feel free to modify any sections to better suit your project or preferences!
